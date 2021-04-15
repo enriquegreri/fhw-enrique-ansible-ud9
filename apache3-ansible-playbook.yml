@@ -1,0 +1,24 @@
+- hosts: fhw
+  remote_user: root
+  tasks:
+    - name: Install Apache2
+      apt: 
+        name: apache2 
+        state: latest
+    - name: Start Apache2
+      service: 
+        name: apache2 
+        state: restarted 
+        enabled: yes
+      notify: 
+        - deploy
+    - name: Message
+      command: echo {{ message }}
+  handlers:
+    - name: copy_html
+      copy:
+        src: /home/vagrant/ud9-playbooks/ansible.html
+        dest: /var/www/html/
+        owner: www-data
+        group: www-data
+      listen: deploy
