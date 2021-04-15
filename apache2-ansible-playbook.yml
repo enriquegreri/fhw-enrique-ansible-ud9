@@ -8,7 +8,7 @@
     - name: Start Apache2
       service: 
         name: apache2 
-        state: started 
+        state: restarted 
         enabled: yes
       notify: 
         - deploy
@@ -20,5 +20,3 @@
         owner: www-data
         group: www-data
       listen: deploy
-
-
